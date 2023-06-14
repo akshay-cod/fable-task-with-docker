@@ -8,6 +8,6 @@ in .env if DB variable changed to sql db will be SQL or default mongodb both are
 JSON file will be cleared every 20 seconds and pushed to redis to start db operations
 
 # To run project 
-1.setup docker environment in your localmachine 
-2.to start project, run in terminal "docker container up" inside the project directory
-3.to run load testing "docker compose -f docker-compose.tests.yml up" which runs 1000 request per second for 10 seconds using npm load test
+1.setup docker environment in your local machine 
+2.to run project, run in terminal enter the command "docker container up" inside the project directory
+3.to run load testing enter the command "docker compose -f docker-compose.tests.yml up" which runs 1000 request per second for 10 seconds using npm load test
