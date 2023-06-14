@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  tests:
+    build: ./load-test 
+    working_dir: /code
+    environment:
+      host: "http://fun"
