@@ -1,0 +1,1 @@
+docker network connect redis-network nodeApp
