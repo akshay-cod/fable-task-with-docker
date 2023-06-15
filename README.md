@@ -11,3 +11,4 @@ JSON file will be cleared every 20 seconds and pushed to redis to start db opera
 1.setup docker environment in your local machine 
 2.to run project, run in terminal enter the command "docker container up" inside the project directory
 3.to run load testing enter the command "docker compose -f docker-compose.tests.yml up" which runs 1000 request per second for 10 seconds using npm load test
+Note: i kept /api/logs as get route to run test easily for now im inserting static data
