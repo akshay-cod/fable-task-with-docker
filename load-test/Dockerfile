@@ -8,4 +8,4 @@ USER root
 
 RUN npm install -g loadtest
 
-CMD [ "loadtest", "http://nodeapp:8989/api/logs", "-t", "10", "-c", "10", "--rps", "1000" ]
+CMD [ "loadtest", "http://nginx/api/logs", "-t", "50", "-c", "10", "--rps", "1200" ]

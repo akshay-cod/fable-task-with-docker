@@ -5,10 +5,32 @@ services:
       restart: always
       ports:
         - 6379:6379
+    
+    redis-2:
+      image: redis:6.2-alpine
+      restart: always
+      ports:
+        - 6380:6379
+    
     nodeapp:
       build: ./febble
       ports:
         - 8989:8989
       environment:
         REDISHOST: redis
+
+    nodeapp-2:
+      build: ./febble
+      ports:
+        - 8990:8989
+      environment:
+        REDISHOST: redis-2
+
+    nginx:
+      build: ./nginx
+      ports:
+      - 8080:80
+      depends_on:
+      - nodeapp
+      - nodeapp-2
    

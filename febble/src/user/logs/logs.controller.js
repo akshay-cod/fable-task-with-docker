@@ -4,7 +4,7 @@ const LogsModelRepository = require("./model/logs.model.repository");
 const Queue = require("bull");
 const queue = new Queue('file-writing-queue',process.env.ISCONTAINER == "true" ? {
     redis: {
-      host: 'redis',
+      host: process.env.REDISHOST,
       port: 6379
     }
   }: {});

@@ -40,13 +40,21 @@ app.listen(process.env.PORT, () =>
     console.log("redis error",process.env)
     const queuedJobs = await queue.getJobs(["waiting", "delayed"]);
     console.log(queuedJobs.length,"que length")
-    let newJobs = await readAndGetArray();
-    console.log(newJobs.length,"current array")
-    newJobs.map(async (data)=>{
-      await queue.add(data,{ removeOnComplete: true, removeOnFail: true },);
-    })
+    
+   // let newJobs = await readAndGetArray();
+   const filequeue = new Queue('file-writing-queue',process.env.ISCONTAINER == "true" ? {
+    redis: {
+      host: process.env.REDISHOST,
+      port: 6379
+    }
+  }: {});
+   filequeue.add({test:"passed", type:"bulk-upload"},{ removeOnComplete: true, removeOnFail: true });
+   // console.log(newJobs.length,"current array")
+    // newJobs.map(async (data)=>{
+    //   await queue.add(data,{ removeOnComplete: true, removeOnFail: true },);
+    // })
     console.log("working")
-  }, 20000);
+  }, 5000);
 
   queue.process(async (job, done) => {
     try{
@@ -103,6 +111,12 @@ app.listen(process.env.PORT, () =>
       console.log(job.data);
       if(job.data.type == "normal"){
         const writeToAFile = await readAndAppend({data:job.data})
+      }
+      else if(job.data.type == "bulk-upload"){
+        let newJobs = await readAndGetArray();
+         newJobs.map(async (data)=>{
+      await queue.add(data,{ removeOnComplete: true, removeOnFail: true },);
+    })
       }
       done();
     }
